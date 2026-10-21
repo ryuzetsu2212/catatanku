@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>CatatanKu</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ONBOARDING -->
+<div id="onboarding" class="onboarding hidden">
+  <div class="ob-slides" id="ob-slides">
+    <div class="ob-slide">
+      <img src="onboarding.webp" alt="" class="ob-img float">
+      <h2>Selamat datang di CatatanKu</h2>
+      <p>Catatan ringan, cepat, dan 100% offline. Tanpa login, tanpa iklan, tanpa langganan.</p>
+    </div>
+    <div class="ob-slide">
+      <div class="ob-emoji">🗂️</div>
+      <h2>Rapikan dengan folder</h2>
+      <p>Kelompokkan catatan ke folder berwarna. Cari apa pun dalam sekejap.</p>
+    </div>
+    <div class="ob-slide">
+      <div class="ob-emoji">💾</div>
+      <h2>Datamu milikmu</h2>
+      <p>Semua tersimpan di HP. Backup ke file JSON kapan pun dari menu.</p>
+    </div>
+  </div>
+  <div class="ob-dots" id="ob-dots"></div>
+  <div class="ob-actions">
+    <button class="btn-text" id="ob-skip">Lewati</button>
+    <button class="btn-primary" id="ob-next">Lanjut</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+
+  <!-- HOME -->
+  <section id="view-home" class="view">
+    <header class="appbar">
+      <button class="icon-btn" id="btn-menu" aria-label="Menu">☰</button>
+      <h1 class="app-title">CatatanKu</h1>
+      <button class="icon-btn" id="btn-theme" aria-label="Tema">🌙</button>
+      <button class="icon-btn" id="btn-search" aria-label="Cari">🔍</button>
+    </header>
+    <div class="searchbar hidden" id="searchbar">
+      <input type="search" id="search-input" placeholder="Cari catatan..." autocomplete="off">
+    </div>
+    <div class="subhead hidden" id="subhead">
+      <button class="icon-btn" id="btn-subback" aria-label="Kembali"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg></button>
+      <h2 id="subhead-title"></h2>
+      <button class="icon-btn" id="btn-sort" aria-label="Urutkan"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10M11 9h7M11 13h4"/><path d="M3 17l3 3 3-3"/><path d="M6 18V4"/></svg></button>
+      <button class="icon-btn" id="btn-select" aria-label="Pilih"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></button>
+      <button class="icon-btn hidden" id="btn-sel-all" aria-label="Pilih semua"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6l1 1 2-2M3 12l1 1 2-2M3 18l1 1 2-2"/></svg></button>
+      <button class="icon-btn hidden" id="btn-move-sel" aria-label="Pindah folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></button>
+      <button class="icon-btn hidden" id="btn-exp-sel" aria-label="Ekspor PDF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></button>
+      <button class="icon-btn danger hidden" id="btn-del-sel" aria-label="Hapus yang dipilih"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+    </div>
+    <main class="notes-list hidden" id="notes-list"></main>
+    <div class="empty" id="empty-state">
+      <div class="home-greet">
+        <div class="greet-hi" id="greet-hi"></div>
+        <div class="greet-stats" id="greet-stats"></div>
+      </div>
+      <div class="mascot-wrap" aria-hidden="true"></div>
+    </div>
+    <div class="chatbar">
+      <input type="text" id="chat-input" placeholder="Tulis catatan atau tempel link..." autocomplete="off">
+      <button id="chat-send" aria-label="Kirim"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
+    </div>
+  </section>
+
+  <!-- EDITOR -->
+  <section id="view-editor" class="view off-right">
+    <header class="appbar">
+      <button class="icon-btn" id="btn-back" aria-label="Kembali"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg></button>
+      <span class="spacer"></span>
+      <button class="icon-btn" id="btn-export" aria-label="Ekspor"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></button>
+      <button class="icon-btn" id="btn-pin" aria-label="Pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l1 7 3 3v2H5v-2l3-3z"/><path d="M12 16v5"/></svg></button>
+      <button class="icon-btn danger" id="btn-delete" aria-label="Hapus"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+      <button class="icon-btn accent" id="btn-save" aria-label="Simpan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></button>
+    </header>
+    <div class="editor-wrap">
+      <div class="folder-chip" id="ed-folder-chip">
+        <span class="dot" id="ed-folder-dot"></span>
+        <span class="chip-name" id="ed-folder-name"></span>
+        <svg class="chip-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        <select id="ed-folder" class="folder-select-cover" aria-label="Folder"></select>
+      </div>
+      <input id="ed-title" class="ed-title" placeholder="Judul" autocomplete="off">
+      <div class="ed-meta" id="ed-meta"></div>
+      <textarea id="ed-body" class="ed-body" placeholder="Tulis catatanmu di sini..."></textarea>
+    </div>
+  </section>
+
+  <!-- DRAWER -->
+  <div class="scrim hidden" id="scrim"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head">
+      <h2>CatatanKu</h2>
+      <p id="drawer-stats"></p>
+    </div>
+    <div class="drawer-section">NAVIGASI</div>
+    <button class="drawer-item" id="nav-pin">📌 Disematkan</button>
+    <button class="drawer-item" id="nav-trash">🗑 Sampah</button>
+    <div class="drawer-section">MASKOT</div>
+    <div class="mascot-row" id="mascot-row"></div>
+    <div class="drawer-section">FOLDER</div>
+    <div id="drawer-folders"></div>
+    <button class="drawer-item" id="btn-add-folder">＋ Folder baru</button>
+    <div class="drawer-section">LAINNYA</div>
+    <button class="drawer-item" id="btn-backup">💾 Backup ke file</button>
+    <button class="drawer-item" id="btn-restore">📂 Pulihkan dari file</button>
+    <input type="file" id="restore-file" accept=".json,application/json" style="position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0">
+    <button class="drawer-item" id="btn-theme2">🌓 Ganti tema</button>
+    <button class="drawer-item" id="btn-about">ℹ️ Tentang</button>
+  </aside>
+
+  <!-- DIALOG -->
+  <div class="dialog-wrap hidden" id="dialog-wrap">
+    <div class="dialog" id="dialog">
+      <h3 id="dlg-title"></h3>
+      <div id="dlg-body"></div>
+      <div class="dlg-actions">
+        <button class="btn-text" id="dlg-cancel">Batal</button>
+        <button class="btn-primary" id="dlg-ok">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
