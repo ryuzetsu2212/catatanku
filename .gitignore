@@ -1,0 +1,14 @@
+# build output
+build/
+*.apk
+*.idsig
+
+# android local
+local.properties
+*.iml
+.idea/
+.gradle/
+
+# os
+.DS_Store
+Thumbs.db
